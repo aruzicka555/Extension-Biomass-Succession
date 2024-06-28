@@ -18,7 +18,7 @@ LandisData  "Scenario"
 >> REQUIRED INPUTS
 >>-------------------
 
-Duration  	50
+Duration  	500
 
 Species   	./species_s2e1.txt
 

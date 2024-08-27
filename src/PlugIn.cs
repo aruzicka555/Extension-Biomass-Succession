@@ -1,6 +1,7 @@
 //  Authors:  Robert M. Scheller
 
 using Landis.Core;
+using Landis.GeoTiff;
 using Landis.SpatialModeling;
 using Landis.Library.Climate;
 using Landis.Library.Succession;
@@ -79,8 +80,8 @@ namespace Landis.Extension.Succession.Biomass
             if (Parameters.ClimateConfigFile != null)
             {
                 Climate.Initialize(Parameters.ClimateConfigFile, false, modelCore);
-                FutureClimateBaseYear = Climate.Future_MonthlyData.Keys.Min();
-                ClimateRegionData.Initialize(Parameters);
+                //FutureClimateBaseYear = Climate.Future_MonthlyData.Keys.Min();
+                //ClimateRegionData.Initialize(Parameters);
             }
 
             sufficientLight = Parameters.LightClassProbabilities;
@@ -136,7 +137,7 @@ namespace Landis.Extension.Succession.Biomass
             base.Run();
 
             if (Timestep > 0 && Parameters.ClimateConfigFile != null)
-                ClimateRegionData.SetAllEcoregions_FutureAnnualClimate(ModelCore.CurrentTime);
+                //ClimateRegionData.SetAllEcoregions_FutureAnnualClimate(ModelCore.CurrentTime);
 
             Outputs.WriteLogFile(PlugIn.ModelCore.CurrentTime);
 
@@ -393,15 +394,15 @@ namespace Landis.Extension.Succession.Biomass
             Landis.Library.InitialCommunities.Universal.IDataset communities = Landis.Data.Load<Landis.Library.InitialCommunities.Universal.IDataset>(initialCommunitiesText, parser);
 
             ModelCore.UI.WriteLine("   Reading initial communities map \"{0}\" ...", initialCommunitiesMap);
-            IInputRaster<UIntPixel> map;
-            map = ModelCore.OpenRaster<UIntPixel>(initialCommunitiesMap);
+            IInputRaster<uint> map;
+            map = ModelCore.OpenRaster<uint>(initialCommunitiesMap);
             using (map)
             {
-                UIntPixel pixel = map.BufferPixel;
+                uint pixel = map.BufferPixel;
                 foreach (Site site in ModelCore.Landscape.AllSites)
                 {
                     map.ReadBufferPixel();
-                    uint mapCode = pixel.MapCode.Value;
+                    uint mapCode = pixel;
                     if (!site.IsActive)
                         continue;
 

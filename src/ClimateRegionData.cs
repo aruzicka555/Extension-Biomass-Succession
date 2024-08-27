@@ -12,6 +12,7 @@ using System;
 
 namespace Landis.Extension.Succession.Biomass
 {
+    /*
     public class ClimateRegionData
     {
 
@@ -121,4 +122,5 @@ namespace Landis.Extension.Succession.Biomass
 
         
     }
+    */
 }
